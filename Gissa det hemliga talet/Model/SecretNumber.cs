@@ -13,18 +13,23 @@ namespace Gissa_det_hemliga_talet.Model
 
         public bool CanMakeGuess { get; }
         public int Count { get; }
-        public int Number { get; }
+        public int? Number { get; }
         public Outcome Outcome { get; set; }
-        public IEnumerable<int> PreviousGuesses { get; }
+        public IEnumerable<int> PreviousGuesses
+        {
+            get
+            {
+                return _previousGuesses.AsReadOnly();
+            }
+        }
 
         public void Initialize()
         {
+            _previousGuesses.Clear();
+            Outcome = Outcome.Indefinite;
             Random random = new Random();
             int number = random.Next(1, 101);
             _number = number;
-
-            _previousGuesses.Clear();
-            Outcome = Outcome.Indefinite;
         }
 
         public Outcome MakeGuess(int guess)
@@ -39,28 +44,30 @@ namespace Gissa_det_hemliga_talet.Model
                 return Outcome.NoMoreGuesses;
             }
 
-            else if (guess == _number)
+            else
             {
-                return Outcome.Correct;
-            }
+                if (guess == _number)
+                {
+                    return Outcome.Correct;
+                }
 
-            else if (guess < _number)
-            {
-                return Outcome.Low;
-            }
+                else if (guess < _number)
+                {
+                    return Outcome.Low;
+                }
 
-            else if (guess > _number)
-            {
-                return Outcome.High;
+                else if (guess > _number)
+                {
+                    return Outcome.High;
+                }
+                _previousGuesses.Add(guess);
             }
         }
 
         public SecretNumber()
         {
-            if (_number == null)
-            {
-                Initialize();
-            }
+            _previousGuesses = new List<int>(MaxMumberOfGuesses);
+            Initialize();
         }
     }
 

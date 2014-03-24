@@ -10,6 +10,18 @@ namespace Gissa_det_hemliga_talet
 {
     public partial class Default : System.Web.UI.Page
     {
+        private SecretNumber Secretnumber {
+            get
+            {
+                return Session["SecretNumber"] as SecretNumber;
+            }
+
+            set
+            {
+                Session["SecretNumber"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             GuessBox.Focus();
@@ -28,7 +40,23 @@ namespace Gissa_det_hemliga_talet
 
                 else
                 {
-                    SecretNumber makeGuess = new SecretNumber();
+                    var makeGuess = new SecretNumber();
+                    makeGuess.Outcome = makeGuess.MakeGuess(guess);
+
+                    if (makeGuess.Outcome == Outcome.NoMoreGuesses)
+                    {
+
+                    }
+
+                    if (makeGuess.Outcome == Outcome.Correct)
+                    {
+
+                    }
+
+                    if (makeGuess.Outcome == Outcome.Low || makeGuess.Outcome == Outcome.High)
+                    {
+                        PastGuesses.Text = String.Format("{0}", guess);
+                    }
                 }
             }
         }
