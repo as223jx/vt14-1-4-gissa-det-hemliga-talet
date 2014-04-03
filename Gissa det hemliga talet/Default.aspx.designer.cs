@@ -22,15 +22,6 @@ namespace Gissa_det_hemliga_talet {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// ValidationSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary;
-        
-        /// <summary>
         /// Title control.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace Gissa_det_hemliga_talet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Title;
+        
+        /// <summary>
+        /// ValidationSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary;
         
         /// <summary>
         /// Label control.
@@ -85,13 +85,22 @@ namespace Gissa_det_hemliga_talet {
         protected global::System.Web.UI.WebControls.Button SendButton;
         
         /// <summary>
-        /// EndGame control.
+        /// Result control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder EndGame;
+        protected global::System.Web.UI.WebControls.Label Result;
+        
+        /// <summary>
+        /// PlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder;
         
         /// <summary>
         /// PastGuesses control.

@@ -10,7 +10,7 @@ namespace Gissa_det_hemliga_talet
 {
     public partial class Default : System.Web.UI.Page
     {
-        private SecretNumber Secretnumber {
+        public SecretNumber secretnumber {
             get
             {
                 return Session["SecretNumber"] as SecretNumber;
@@ -25,6 +25,11 @@ namespace Gissa_det_hemliga_talet
         protected void Page_Load(object sender, EventArgs e)
         {
             GuessBox.Focus();
+
+            if (secretnumber == null)
+            {
+                this.secretnumber = new SecretNumber();
+            }
         }
 
         protected void SendButton_Click(object sender, EventArgs e)
@@ -40,25 +45,40 @@ namespace Gissa_det_hemliga_talet
 
                 else
                 {
-                    var makeGuess = new SecretNumber();
-                    makeGuess.Outcome = makeGuess.MakeGuess(guess);
+                    var newguess = secretnumber.MakeGuess(guess);
 
-                    if (makeGuess.Outcome == Outcome.NoMoreGuesses)
+                    if (Outcome.Correct == newguess)
                     {
-
+                        Result.Text += String.Format("RÄTT! Det hemliga talet var {0} och du klarade det på {1} drag!", secretnumber.Number, secretnumber.Count);
                     }
 
-                    if (makeGuess.Outcome == Outcome.Correct)
+                    if (Outcome.Low == newguess)
                     {
-
+                        Result.Text += String.Format("För lågt! ");
                     }
 
-                    if (makeGuess.Outcome == Outcome.Low || makeGuess.Outcome == Outcome.High)
+                    if (Outcome.High == newguess)
                     {
-                        PastGuesses.Text = String.Format("{0}", guess);
+                        Result.Text += String.Format("För högt! ");
                     }
+
+                    if (!secretnumber.CanMakeGuess && secretnumber.Outcome != Outcome.Correct)
+                    {
+                        Result.Text += String.Format("Du har inga gissningar kvar! Det hemliga talet var {0}.", secretnumber.Number);
+                        SendButton.Enabled = false;
+                        NewRandomButton.Enabled = true;
+                    }
+
+                    string previous = String.Join(", ", secretnumber.PreviousGuesses);
+                    PastGuesses.Text = String.Format("Du har gissat på {0}", previous);
+                    PlaceHolder.Visible = true;
                 }
             }
+        }
+
+        protected void NewRandomButton_Click(object sender, EventArgs e)
+        {
+            secretnumber.Initialize();
         }
     }
 }

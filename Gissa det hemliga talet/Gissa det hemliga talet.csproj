@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="Content\style.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -70,6 +71,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Outcome.cs" />
     <Compile Include="Model\SecretNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

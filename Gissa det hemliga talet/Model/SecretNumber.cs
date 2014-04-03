@@ -11,10 +11,36 @@ namespace Gissa_det_hemliga_talet.Model
         List<int> _previousGuesses;
         const int MaxMumberOfGuesses = 7;
 
-        public bool CanMakeGuess { get; }
-        public int Count { get; }
-        public int? Number { get; }
-        public Outcome Outcome { get; set; }
+        public bool CanMakeGuess
+        {
+            get
+            {
+                return _previousGuesses.Count < MaxMumberOfGuesses && !_previousGuesses.Contains(_number);
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return _previousGuesses.Count;
+            }
+        }
+
+        public int? Number
+        {
+            get
+            {
+                if (CanMakeGuess)
+                {
+                    return null;
+                }
+                return _number;
+            }
+        }
+
+        public Outcome Outcome { get; private set; }
+
         public IEnumerable<int> PreviousGuesses
         {
             get
@@ -44,24 +70,30 @@ namespace Gissa_det_hemliga_talet.Model
                 return Outcome.NoMoreGuesses;
             }
 
+            if (PreviousGuesses.Contains(guess))
+            {
+                Outcome = Outcome.PreviousGuess;
+            }
+
             else
             {
                 if (guess == _number)
                 {
-                    return Outcome.Correct;
+                    Outcome = Outcome.Correct;
                 }
 
                 else if (guess < _number)
                 {
-                    return Outcome.Low;
+                    Outcome = Outcome.Low;
                 }
 
                 else if (guess > _number)
                 {
-                    return Outcome.High;
+                    Outcome = Outcome.High;
                 }
                 _previousGuesses.Add(guess);
             }
+            return Outcome;
         }
 
         public SecretNumber()
@@ -69,15 +101,5 @@ namespace Gissa_det_hemliga_talet.Model
             _previousGuesses = new List<int>(MaxMumberOfGuesses);
             Initialize();
         }
-    }
-
-    public enum Outcome
-    {
-        Indefinite,
-        Low,
-        High,
-        Correct,
-        NoMoreGuesses,
-        PreviousGuess
     }
 }

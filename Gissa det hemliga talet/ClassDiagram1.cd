@@ -11,7 +11,7 @@
     <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAgABAAAAAAAAgAJAAA=</HashCode>
-      <FileName>Model\SecretNumber.cs</FileName>
+      <FileName>Model\Outcome.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
